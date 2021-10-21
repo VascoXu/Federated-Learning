@@ -15,6 +15,11 @@ class FederatedStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetServerResponse = channel.stream_stream(
+                '/helloworld.Federated/GetServerResponse',
+                request_serializer=federated__pb2.Empty.SerializeToString,
+                response_deserializer=federated__pb2.Empty.FromString,
+                )
         self.Join = channel.unary_unary(
                 '/helloworld.Federated/Join',
                 request_serializer=federated__pb2.Model.SerializeToString,
@@ -26,6 +31,12 @@ class FederatedServicer(object):
     """Service definitions.
     """
 
+    def GetServerResponse(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def Join(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -35,6 +46,11 @@ class FederatedServicer(object):
 
 def add_FederatedServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetServerResponse': grpc.stream_stream_rpc_method_handler(
+                    servicer.GetServerResponse,
+                    request_deserializer=federated__pb2.Empty.FromString,
+                    response_serializer=federated__pb2.Empty.SerializeToString,
+            ),
             'Join': grpc.unary_unary_rpc_method_handler(
                     servicer.Join,
                     request_deserializer=federated__pb2.Model.FromString,
@@ -50,6 +66,23 @@ def add_FederatedServicer_to_server(servicer, server):
 class Federated(object):
     """Service definitions.
     """
+
+    @staticmethod
+    def GetServerResponse(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/helloworld.Federated/GetServerResponse',
+            federated__pb2.Empty.SerializeToString,
+            federated__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Join(request,

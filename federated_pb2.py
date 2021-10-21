@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0f\x66\x65\x64\x65rated.proto\x12\nhelloworld\"\x16\n\x05Model\x12\r\n\x05model\x18\x01 \x01(\t\"\x18\n\x05\x45mpty\x12\x0f\n\x07message\x18\x01 \x01(\t2;\n\tFederated\x12.\n\x04Join\x12\x11.helloworld.Model\x1a\x11.helloworld.Empty\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\x0f\x66\x65\x64\x65rated.proto\x12\nhelloworld\"\x16\n\x05Model\x12\r\n\x05model\x18\x01 \x01(\t\"\x18\n\x05\x45mpty\x12\x0f\n\x07message\x18\x01 \x01(\t2|\n\tFederated\x12?\n\x11GetServerResponse\x12\x11.helloworld.Empty\x1a\x11.helloworld.Empty\"\x00(\x01\x30\x01\x12.\n\x04Join\x12\x11.helloworld.Model\x1a\x11.helloworld.Empty\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
 )
 
 
@@ -117,12 +117,22 @@ _FEDERATED = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=81,
-  serialized_end=140,
+  serialized_end=205,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='GetServerResponse',
+    full_name='helloworld.Federated.GetServerResponse',
+    index=0,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
   _descriptor.MethodDescriptor(
     name='Join',
     full_name='helloworld.Federated.Join',
-    index=0,
+    index=1,
     containing_service=None,
     input_type=_MODEL,
     output_type=_EMPTY,

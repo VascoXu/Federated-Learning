@@ -22,5 +22,6 @@ message Empty {
 
 // Service definitions.
 service Federated {  
+    rpc GetServerResponse(stream Empty) returns (stream Empty) {}
     rpc Join(Model) returns (Empty) {}
 }

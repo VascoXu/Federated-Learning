@@ -7,6 +7,10 @@ import federated_pb2_grpc
 
 
 class FederatedServicer(federated_pb2_grpc.FederatedServicer):
+    def GetServerResponse(self, request_iterator, context):
+        for message in request_iterator:
+            yield message
+
     def Join(self, request, context):
         """Join model"""
         
