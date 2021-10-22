@@ -21,22 +21,8 @@ from tensorflow.keras.optimizers import SGD
 from tensorflow.keras import backend as K
 
 
-class FederatedMLP:
-    @staticmethod
-    def build(shape, classes=10):
-        model = tf.keras.Sequential(
-            [
-                tf.keras.Input(shape=shape),
-                tf.keras.layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Flatten(),
-                tf.keras.layers.Dropout(0.5),
-                tf.keras.layers.Dense(classes, activation="softmax"),
-            ]
-        )
-        return model
+from models import FederatedMLP
+from helpers import bytes_to_ndarray, ndarray_to_bytes
 
 
 def load_data():
@@ -73,8 +59,6 @@ def weights_scaling_factor(clients, client_name):
     bs = list(clients[client_name])[0][0].shape[0]
     global_count = sum(len(clients[client_name]) for client_name in client_names)*bs
     local_count = len(clients[client_name])*bs
-    # global_count = sum([tf.data.experimental.cardinality(clients[client_name]).numpy() for client_name in client_names])*bs
-    # local_count = tf.data.experimental.cardinality(clients[client_name]).numpy()*bs
     return local_count/global_count
 
 
@@ -96,7 +80,6 @@ def sum_scaled_weights(scaled_weight_list):
 
 
 def test_model(x_test, y_test, rounds, model):
-
     optimizer = SGD(
         lr=0.01,
         decay=0.01 / rounds,
@@ -109,37 +92,6 @@ def test_model(x_test, y_test, rounds, model):
     print("Test accuracy:", score[1])
     return score
 
-
-def ndarray_to_bytes(ndarray: np.ndarray) -> bytes:
-    """Serialize NumPy ndarray to bytes."""
-    bytes_io = BytesIO()
-    np.save(bytes_io, ndarray, allow_pickle=False)
-    return bytes_io.getvalue()
-
-
-def make_message(message):
-    return federated_pb2.Empty(
-        message=message
-    )
-
-
-def generate_messages():
-    messages = [
-        make_message("One"),
-        make_message("Two"),
-        make_message("Three"),
-        make_message("Four"),
-        make_message("Five")
-    ]
-    for msg in messages:
-        print(f"Sending server message: {msg.message}")
-        yield msg
-
-
-def send_message(stub):
-    responses = stub.GetServerResponse(generate_messages())
-    for response in responses:
-        print(f"Message received from server: {response.message}")
 
 class Client:
     def __init__(self):
@@ -200,8 +152,11 @@ class Client:
             K.clear_session()
        
             with grpc.insecure_channel(server_address) as channel:
+                # Setup communication
                 stub = federated_pb2_grpc.FederatedStub(channel)
                 model = federated_pb2.Model()
-                model.weights = scaled_weights
+                model.weights.extend(scaled_weights)
+
+                # Call remote function
                 response = stub.Join(model)
 
