@@ -10,9 +10,12 @@ package helloworld;
 
 // The request message containing the model.
 message Model {
-    string model = 1;
+    repeated bytes weights = 1;
 }
 
+message Weights {
+    bytes weights = 1;
+}
 
 // Empty reply.
 message Empty {
