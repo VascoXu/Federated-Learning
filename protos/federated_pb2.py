@@ -15,11 +15,11 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='federated.proto',
-  package='helloworld',
+  package='federated',
   syntax='proto3',
   serialized_options=b'\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0f\x66\x65\x64\x65rated.proto\x12\nhelloworld\"\x18\n\x05Model\x12\x0f\n\x07weights\x18\x01 \x03(\x0c\"\x1a\n\x07Weights\x12\x0f\n\x07weights\x18\x01 \x01(\x0c\"\x18\n\x05\x45mpty\x12\x0f\n\x07message\x18\x01 \x01(\t2|\n\tFederated\x12?\n\x11GetServerResponse\x12\x11.helloworld.Empty\x1a\x11.helloworld.Empty\"\x00(\x01\x30\x01\x12.\n\x04Join\x12\x11.helloworld.Model\x1a\x11.helloworld.Empty\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\x0f\x66\x65\x64\x65rated.proto\x12\tfederated\"\x18\n\x05Model\x12\x0f\n\x07weights\x18\x01 \x03(\x0c\"\x1a\n\x07Weights\x12\x0f\n\x07weights\x18\x01 \x01(\x0c\"\x18\n\x05\x45mpty\x12\x0f\n\x07message\x18\x01 \x01(\t2x\n\tFederated\x12=\n\x11GetServerResponse\x12\x10.federated.Empty\x1a\x10.federated.Empty\"\x00(\x01\x30\x01\x12,\n\x04Join\x12\x10.federated.Model\x1a\x10.federated.Empty\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3'
 )
 
 
@@ -27,14 +27,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _MODEL = _descriptor.Descriptor(
   name='Model',
-  full_name='helloworld.Model',
+  full_name='federated.Model',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='weights', full_name='helloworld.Model.weights', index=0,
+      name='weights', full_name='federated.Model.weights', index=0,
       number=1, type=12, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -52,21 +52,21 @@ _MODEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=31,
-  serialized_end=55,
+  serialized_start=30,
+  serialized_end=54,
 )
 
 
 _WEIGHTS = _descriptor.Descriptor(
   name='Weights',
-  full_name='helloworld.Weights',
+  full_name='federated.Weights',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='weights', full_name='helloworld.Weights.weights', index=0,
+      name='weights', full_name='federated.Weights.weights', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -84,21 +84,21 @@ _WEIGHTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=57,
-  serialized_end=83,
+  serialized_start=56,
+  serialized_end=82,
 )
 
 
 _EMPTY = _descriptor.Descriptor(
   name='Empty',
-  full_name='helloworld.Empty',
+  full_name='federated.Empty',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='helloworld.Empty.message', index=0,
+      name='message', full_name='federated.Empty.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -116,8 +116,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=85,
-  serialized_end=109,
+  serialized_start=84,
+  serialized_end=108,
 )
 
 DESCRIPTOR.message_types_by_name['Model'] = _MODEL
@@ -128,21 +128,21 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Model = _reflection.GeneratedProtocolMessageType('Model', (_message.Message,), {
   'DESCRIPTOR' : _MODEL,
   '__module__' : 'federated_pb2'
-  # @@protoc_insertion_point(class_scope:helloworld.Model)
+  # @@protoc_insertion_point(class_scope:federated.Model)
   })
 _sym_db.RegisterMessage(Model)
 
 Weights = _reflection.GeneratedProtocolMessageType('Weights', (_message.Message,), {
   'DESCRIPTOR' : _WEIGHTS,
   '__module__' : 'federated_pb2'
-  # @@protoc_insertion_point(class_scope:helloworld.Weights)
+  # @@protoc_insertion_point(class_scope:federated.Weights)
   })
 _sym_db.RegisterMessage(Weights)
 
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
   'DESCRIPTOR' : _EMPTY,
   '__module__' : 'federated_pb2'
-  # @@protoc_insertion_point(class_scope:helloworld.Empty)
+  # @@protoc_insertion_point(class_scope:federated.Empty)
   })
 _sym_db.RegisterMessage(Empty)
 
@@ -151,17 +151,17 @@ DESCRIPTOR._options = None
 
 _FEDERATED = _descriptor.ServiceDescriptor(
   name='Federated',
-  full_name='helloworld.Federated',
+  full_name='federated.Federated',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=111,
-  serialized_end=235,
+  serialized_start=110,
+  serialized_end=230,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetServerResponse',
-    full_name='helloworld.Federated.GetServerResponse',
+    full_name='federated.Federated.GetServerResponse',
     index=0,
     containing_service=None,
     input_type=_EMPTY,
@@ -171,7 +171,7 @@ _FEDERATED = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Join',
-    full_name='helloworld.Federated.Join',
+    full_name='federated.Federated.Join',
     index=1,
     containing_service=None,
     input_type=_MODEL,

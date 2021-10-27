@@ -88,6 +88,9 @@ def test_model(x_test, y_test, rounds, model):
 def main():
     """Main function"""
 
+    # 
+    tf.debugging.set_log_device_placement(True)
+
     # Define global modal
     fed_model = FederatedMLP()
     global_model = fed_model.build((28, 28, 1), 10)
@@ -97,7 +100,7 @@ def main():
     train_data, test_data = load_data()
     shards = shard_data(train_data)
 
-    comm_rounds = 5
+    comm_rounds = 100
     for comm_round in range(comm_rounds):
         # Get weights of global models
         global_weights = global_model.get_weights()

@@ -98,11 +98,6 @@ class Client:
         pass
 
     def start_client(self, server_address):
-        # Define global modal
-        fed_model = FederatedMLP()
-        global_model = fed_model.build((28, 28, 1), 10)
-        global_weights = global_model.get_weights()
-
         # Shard data
         train_data, test_data = load_data()
         shards = shard_data(train_data)

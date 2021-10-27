@@ -16,12 +16,12 @@ class FederatedStub(object):
             channel: A grpc.Channel.
         """
         self.GetServerResponse = channel.stream_stream(
-                '/helloworld.Federated/GetServerResponse',
+                '/federated.Federated/GetServerResponse',
                 request_serializer=federated__pb2.Empty.SerializeToString,
                 response_deserializer=federated__pb2.Empty.FromString,
                 )
         self.Join = channel.unary_unary(
-                '/helloworld.Federated/Join',
+                '/federated.Federated/Join',
                 request_serializer=federated__pb2.Model.SerializeToString,
                 response_deserializer=federated__pb2.Empty.FromString,
                 )
@@ -58,7 +58,7 @@ def add_FederatedServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'helloworld.Federated', rpc_method_handlers)
+            'federated.Federated', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -78,7 +78,7 @@ class Federated(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/helloworld.Federated/GetServerResponse',
+        return grpc.experimental.stream_stream(request_iterator, target, '/federated.Federated/GetServerResponse',
             federated__pb2.Empty.SerializeToString,
             federated__pb2.Empty.FromString,
             options, channel_credentials,
@@ -95,7 +95,7 @@ class Federated(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/helloworld.Federated/Join',
+        return grpc.experimental.unary_unary(request, target, '/federated.Federated/Join',
             federated__pb2.Model.SerializeToString,
             federated__pb2.Empty.FromString,
             options, channel_credentials,
