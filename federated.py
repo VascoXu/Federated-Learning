@@ -85,6 +85,29 @@ def test_model(x_test, y_test, rounds, model):
     return score
 
 
+### SZ added
+def shard_data2(data, num_clients=10):
+    """Shard data + add noise to shards
+    num_clients: number of mobile devices
+    """
+
+    print("[X] Sharding data...")
+    client_names = [f"device{i}" for i in range(num_clients)]
+    size = len(data)//num_clients
+    shards = [data[i:i + size] for i in range(0, size*num_clients, size)]
+
+
+    return {client_names[i]: shards[i] if i % 2 == 0 else add_noise(shards[i]) for i in range(num_clients)}
+
+### SZ added
+def add_noise(shard):
+  ## shard[i][j]: 1st index: ith data (out of 6000); 2nd index: 0 means data from x_train vs 1 means data from y_train
+
+  Guassian_filter = tf.keras.layers.GaussianNoise(0.2)
+  shard_guas_noise = [(Guassian_filter(shard[k][0][:, :],training=True), shard[k][1]) for k in range(len(shard))]
+  return shard_guas_noise
+
+
 def main():
     """Main function"""
 
